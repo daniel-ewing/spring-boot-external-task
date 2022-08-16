@@ -1,0 +1,18 @@
+camunda.bpm.client:
+  base-url: http://localhost:8080/engine-rest # the URL pointing to the Camunda Platform Runtime REST API
+  lock-duration: 30000 # defines how many milliseconds the External Tasks are locked until they can be fetched again
+  subscriptions:
+    external: # topic name of the External Service Task
+#      variable-names: [] # empty array if business logic doesn't require any variables.
+      variable-names: nextTaskName # CSV list of only the variables required by the business logic to complete the External Service Task.
+      process-definition-key: exclusive-gateway # only filter for External Tasks with this process definition key.
+#    loanGranter:
+#      variable-names: customerId, creditScore
+#      process-definition-key: process
+
+logging:
+  file:
+    path: ./logs           # specify a path to write to file, otherwise it defaults to the console.
+  level:
+#    org.camunda.bpm.client: DEBUG # increase the log level of the application
+    org.example.spring.boot.external.task.worker.ExternalHandler: DEBUG
